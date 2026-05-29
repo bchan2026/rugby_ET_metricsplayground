@@ -94,7 +94,15 @@ html, body, [class*="css"] {
 # ---------------------------------------------------------
 def load_womens_players():
     df = load_and_merge_players("data/women")
+    # Normalise column names to lowercase
+df.columns = df.columns.str.lower().str.strip()
+
+# Now safely access the team column
+if "team" in df.columns:
     df["team"] = df["team"].astype(str).str.upper().str.strip()
+else:
+    df["team"] = "UNKNOWN"
+
 
     CELTIC_KEYS = [
         "CLOVERS",
@@ -127,7 +135,7 @@ def load_womens_players():
             return "Premiership Women's Rugby"
         return None
 
-    df["womens_league"] = df["team"].apply(detect_league)
+    df["womens_league"] = df["Team"].apply(detect_league)
     return df[df["womens_league"].notna()].copy()
 
 # ---------------------------------------------------------

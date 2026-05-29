@@ -1,0 +1,106 @@
+universal_metrics:
+  - Games Played
+  - Minutes Played
+  - Points
+  - Dominant Carries
+  - Ball Carries
+  - Post Contact Metres
+  - Line Breaks
+  - Defenders Beaten
+  - Offloads
+  - Passes - Total Pass Attempts (including Offloads)
+  - Try Assists - Total
+  - Successful Tackles %
+  - Offload Allowed Tackles
+  - Breakdown Steals
+  - Turnover Won
+  - Turnover Conceded
+  - Penalty Conceded
+  - Yellow Card
+  - Red Card
+  - Pass Outcome - Break
+
+
+positions:
+
+  Number 8:
+    - Dominant Tackles
+    - Jackals Attempted
+    - Lineout Takes
+    - Yellow Card
+    - Catch From Restart - Success
+    - Att OOA - 1st Own Team
+    - Att OOA - 2nd Own Team
+
+  Prop:
+    - Dominant Tackles
+    - Jackals Attempted
+    - Penalty Conceded - Scrum
+    - Att OOA - 1st Own Team
+    - Att OOA - 2nd Own Team
+    - Ruck Arrival - Def. Intention - Jackal
+    - Ruck Arrival - Def. Intention - Counter-Ruck
+
+  Scrum Half:
+    - Kicks
+    - Kicking Metres
+    - Kick Outcome - 50/22
+
+  Right Centre:
+    - Dominant Tackles
+
+  Lock:
+    - Dominant Tackles
+    - Jackals Attempted
+    - Lineout Steals
+    - Lineout Takes
+    - Catch From Kick - Success
+    - Catch From Restart - Success
+    - Att OOA - 1st Own Team
+    - Att OOA - 2nd Own Team
+    - Ruck Arrival - Def. Intention - Jackal
+    - Ruck Arrival - Def. Intention - Counter-Ruck
+
+  Hooker:
+    - Dominant Tackles
+    - Jackals Attempted
+    - Yellow Card
+    - Own Lineouts Won %
+    - Ruck Arrival - Def. Intention - Jackal
+    - Ruck Arrival - Def. Intention - Counter-Ruck
+
+  Flanker:
+    - Dominant Tackles
+    - Jackals Attempted
+    - Lineout Takes
+    - Yellow Card
+    - Catch From Restart - Success
+    - Att OOA - 1st Own Team
+    - Att OOA - 2nd Own Team
+    - Ruck Arrival - Def. Intention - Jackal
+    - Ruck Arrival - Def. Intention - Counter-Ruck
+
+  Outside Half:
+    - All Goals %
+    - Kicks
+    - Kicking Metres
+    - Kick Outcome - 50/22
+
+  Left Centre:
+    - Dominant Tackles
+
+  Full Back:
+    - All Goals %
+    - Kicks
+    - Kicking Metres
+    - Kick Outcome - 50/22
+
+  Left Wing:
+    - Kicks
+    - Kicking Metres
+    - Catch From Kick - Success
+
+  Right Wing:
+    - Kicks
+    - Kicking Metres
+    - Catch From Kick - Success

@@ -90,39 +90,28 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# WOMEN'S DATA LOADER WITH TEAM-BASED LEAGUE DETECTION
+# WOMEN'S DATA LOADER (FIXED)
 # ---------------------------------------------------------
 def load_womens_players():
     df = load_and_merge_players("data/women")
-    # Normalise column names to lowercase
-df.columns = df.columns.str.lower().str.strip()
 
-# Now safely access the team column
-if "team" in df.columns:
-    df["team"] = df["team"].astype(str).str.upper().str.strip()
-else:
-    df["team"] = "UNKNOWN"
+    # Normalise all column names
+    df.columns = df.columns.str.lower().str.strip()
 
+    # Ensure team column exists
+    if "team" in df.columns:
+        df["team"] = df["team"].astype(str).str.upper().str.strip()
+    else:
+        df["team"] = "UNKNOWN"
 
+    # League detection
     CELTIC_KEYS = [
-        "CLOVERS",
-        "WOLFHOUNDS",
-        "EDINBURGH",
-        "GLASGOW",
-        "BRYTHON",
-        "GWALIA",
+        "CLOVERS", "WOLFHOUNDS", "EDINBURGH", "GLASGOW", "BRYTHON", "GWALIA"
     ]
 
     PWR_KEYS = [
-        "BRISTOL",
-        "EXETER",
-        "GLOUCESTER",
-        "HARLEQUINS",
-        "LEICESTER",
-        "LOUGHBOROUGH",
-        "SALE",
-        "SARACENS",
-        "TRAILFINDERS",
+        "BRISTOL", "EXETER", "GLOUCESTER", "HARLEQUINS", "LEICESTER",
+        "LOUGHBOROUGH", "SALE", "SARACENS", "TRAILFINDERS"
     ]
 
     def detect_league(team: str):
@@ -135,7 +124,8 @@ else:
             return "Premiership Women's Rugby"
         return None
 
-    df["womens_league"] = df["Team"].apply(detect_league)
+    df["womens_league"] = df["team"].apply(detect_league)
+
     return df[df["womens_league"].notna()].copy()
 
 # ---------------------------------------------------------
@@ -171,7 +161,7 @@ universal_metrics = [
 ]
 
 # ---------------------------------------------------------
-# POSITION-SPECIFIC METRICS (same as men)
+# POSITION-SPECIFIC METRICS
 # ---------------------------------------------------------
 position_metrics = {
     "Number 8": [
@@ -263,7 +253,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 st.subheader("🏆 League Filter")
 
 df = players.copy()
-df["Games Played"] = pd.to_numeric(df["Games Played"], errors="coerce").fillna(0)
+df["games played"] = pd.to_numeric(df["games played"], errors="coerce").fillna(0)
 
 leagues = sorted(df["womens_league"].dropna().unique())
 league_choice = st.selectbox("League", ["All leagues"] + leagues, key="top10_women_league")
@@ -272,7 +262,7 @@ if league_choice != "All leagues":
     df = df[df["womens_league"] == league_choice]
 
 # Only players with 6+ games
-df = df[df["Games Played"] >= 6]
+df = df[df["games played"] >= 6]
 
 # ---------------------------------------------------------
 # METRICS THAT SHOULD NOT BE PER-GAME
@@ -289,16 +279,17 @@ raw_metrics = percentage_metrics
 # PER-GAME CONVERSION
 # ---------------------------------------------------------
 for m in universal_metrics + sum(position_metrics.values(), []):
-    if m not in df.columns:
+    col = m.lower().strip()
+    if col not in df.columns:
         continue
 
-    df[m] = pd.to_numeric(df[m], errors="coerce")
+    df[col] = pd.to_numeric(df[col], errors="coerce")
 
     if m in raw_metrics:
-        df[m + " (Value)"] = df[m]
+        df[m + " (Value)"] = df[col]
     else:
         df[m + " (Value)"] = df.apply(
-            lambda row: row[m] / row["Games Played"] if row["Games Played"] > 0 else np.nan,
+            lambda row: row[col] / row["games played"] if row["games played"] > 0 else np.nan,
             axis=1
         )
 
